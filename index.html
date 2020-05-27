@@ -924,6 +924,156 @@ This is scalable because the more servers I buy, the more capacity that I have.<
         </figcaption>
 </p>
 <hr>
+<hr>
+<a for="toc-anchor" id="**raid**"></a><h1 id="raid-2" data-line="559" class="code-line"><strong>RAID</strong></h1>
+<p data-line="561" class="code-line">Redundant Array of Independent Disks</p>
+<ul>
+<li data-line="562" class="code-line">Groups of disks that work together</li>
+<li data-line="563" class="code-line">Better performance, throughput, capacity, and availability</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title"><strong>Striping</strong></p>
+<ul>
+<li data-line="567" class="code-line">A <span style="color:#ff944d;"> <strong>strip</strong></span> is contiguous data on the same disk.</li>
+<li data-line="568" class="code-line">A <span style="color:#ff944d;"> <strong>stripe</strong></span> is the set of disks that will be used by a file system. I write a stirp to disk 1, a strip to disk 2, etc until the stripe is full. The next strip will start again at disk 1.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title"><strong>Mirroring</strong></p>
+<ul>
+<li data-line="572" class="code-line">I have two disks in which one is a copy of the other.</li>
+<li data-line="573" class="code-line">When a strip is written to one disk, it is &quot;mirrored&quot; to another disk.</li>
+</ul>
+</div>
+<div class="admonition info">
+<p data-line="576" class="code-line"><span style="color:#ff944d;"> <strong>Partity</strong></span></p>
+<ul>
+<li data-line="578" class="code-line">Relies on XOR.</li>
+<li data-line="579" class="code-line">When I write and entire stripe, I can use a disk to store the parity.</li>
+<li data-line="580" class="code-line">If one of the disks fail, I can use the parity to calculate which disk failed. For example, if I have A1 and A2 on two disks, the third disk will have A1 Å A2. If one of the disks fails, we can reconstruct it.</li>
+</ul>
+</div>
+<hr>
+<a for="toc-anchor" id="**raid-0%3A-striping**"></a><h2 id="raid-0-striping-2" data-line="584" class="code-line"><strong>Raid-0: Striping</strong></h2>
+<p data-line="586" class="code-line">In this RAID level, we have many disks with many stripes. (minimum 2)</p>
+<div class="admonition success">
+<p class="admonition-title">Offers the best performance since the petitions will be distributed among the disks, lowering the response time. This also offers the best throughput because we have more simultanous disks available to respond to the capacity demand.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Offers no fault tolernace.</p>
+</div>
+<hr>
+<a for="toc-anchor" id="**raid-1%3A-mirroring**"></a><h2 id="raid-1-mirroring-2" data-line="594" class="code-line"><strong>Raid-1: Mirroring</strong></h2>
+<p data-line="596" class="code-line">In this RAID level, we have only 2 disks with mirroring.</p>
+<div class="admonition success">
+<p class="admonition-title">Offers fault tolerance.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers availability.</p>
+<ul>
+<li data-line="601" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="602" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="603" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+</ul>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers better performance for simultanous read operations.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Looses 50% of storage space since the other disk is a copy.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Write operations affect performance since we have to perform two writes instead of one.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">If one disk is damaged, and the other disk is operating, we can't offer anymore fault tolerance while the original disk is damaged.</p>
+</div>
+<hr>
+<a for="toc-anchor" id="**raid-4%3A-striping-with-parity**"></a><h2 id="raid-4-striping-with-parity-2" data-line="612" class="code-line"><strong>Raid-4: Striping with parity</strong></h2>
+<p data-line="614" class="code-line">In this RAID level, we have N disks (minumum 3)</p>
+<div class="admonition success">
+<p class="admonition-title">Offers fault tolerance.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers availability.</p>
+<ul>
+<li data-line="620" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="621" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="622" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+</ul>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers better performance for read operations.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Degrades performance for write operations since the parity disk becomes a botleneck. Every write involves a write to the parity disk.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-1)/N in storage.</p>
+</div>
+<hr>
+<a for="toc-anchor" id="**raid-5%3A-striping-with-distributed-parity**"></a><h2 id="raid-5-striping-with-distributed-parity-2" data-line="631" class="code-line"><strong>Raid-5: Striping with distributed parity</strong></h2>
+<p data-line="633" class="code-line">In this RAID level, we have N disks (minumum 3)
+!!! success Offers fault tolerance.</p>
+<div class="admonition success">
+<p class="admonition-title">Parity is now distributed among the disks.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers availability.</p>
+<ul>
+<li data-line="640" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="641" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="642" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+</ul>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers better performance for read operations.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Large writes have good performance.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Write operations are worse than RAID-4. I have to recalculate the parity, so writes less than one stripe are costly.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-1)/N in storage.</p>
+</div>
+<hr>
+<a for="toc-anchor" id="**raid-6%3A-striping-with-double-distributed-parity**"></a><h2 id="raid-6-striping-with-double-distributed-parity-2" data-line="653" class="code-line"><strong>Raid-6: Striping with double distributed parity</strong></h2>
+<p data-line="655" class="code-line">In this RAID level, we have N disks (minumum 3)
+!!! success Offers fault tolerance.</p>
+<div class="admonition success">
+<p class="admonition-title">Parity is now distributed among the disks and written twice.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers availability.</p>
+<ul>
+<li data-line="662" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="663" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="664" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+</ul>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Offers better performance for read operations.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Large writes have good performance.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">Write operations are diminished.</p>
+</div>
+<div class="admonition failure">
+<p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-2)/N in storage. Expensive.</p>
+</div>
+<p data-line="674" class="code-line">If I have 5 disks, when one disk dies it can detect and automatically reconstruct it. However, a second failure will diminish availability.</p>
+<hr>
+   <p align="center">
+        <img src="https://raw.githubusercontent.com/aortiz49/operating-systems-exam3-notes/master/raid.png">
+        <figcaption style="text-align:center;">
+            Fig. 8: RAID chart
+        </figcaption>
+    </p>
+</div>
 
 </body>
 </html>
