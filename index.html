@@ -924,7 +924,6 @@ This is scalable because the more servers I buy, the more capacity that I have.<
         </figcaption>
 </p>
 <hr>
-<hr>
 <a for="toc-anchor" id="**raid**"></a><h1 id="raid-2" data-line="559" class="code-line"><strong>RAID</strong></h1>
 <p data-line="561" class="code-line">Redundant Array of Independent Disks</p>
 <ul>
@@ -971,9 +970,9 @@ This is scalable because the more servers I buy, the more capacity that I have.<
 <div class="admonition success">
 <p class="admonition-title">Offers availability.</p>
 <ul>
-<li data-line="601" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
-<li data-line="602" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
-<li data-line="603" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+<li data-line="602" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="603" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="604" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
 </ul>
 </div>
 <div class="admonition success">
@@ -989,17 +988,17 @@ This is scalable because the more servers I buy, the more capacity that I have.<
 <p class="admonition-title">If one disk is damaged, and the other disk is operating, we can't offer anymore fault tolerance while the original disk is damaged.</p>
 </div>
 <hr>
-<a for="toc-anchor" id="**raid-4%3A-striping-with-parity**"></a><h2 id="raid-4-striping-with-parity-2" data-line="612" class="code-line"><strong>Raid-4: Striping with parity</strong></h2>
-<p data-line="614" class="code-line">In this RAID level, we have N disks (minumum 3)</p>
+<a for="toc-anchor" id="**raid-4%3A-striping-with-parity**"></a><h2 id="raid-4-striping-with-parity-2" data-line="613" class="code-line"><strong>Raid-4: Striping with parity</strong></h2>
+<p data-line="615" class="code-line">In this RAID level, we have N disks (minumum 3)</p>
 <div class="admonition success">
 <p class="admonition-title">Offers fault tolerance.</p>
 </div>
 <div class="admonition success">
 <p class="admonition-title">Offers availability.</p>
 <ul>
-<li data-line="620" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
-<li data-line="621" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
-<li data-line="622" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+<li data-line="621" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="622" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="623" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
 </ul>
 </div>
 <div class="admonition success">
@@ -1012,18 +1011,20 @@ This is scalable because the more servers I buy, the more capacity that I have.<
 <p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-1)/N in storage.</p>
 </div>
 <hr>
-<a for="toc-anchor" id="**raid-5%3A-striping-with-distributed-parity**"></a><h2 id="raid-5-striping-with-distributed-parity-2" data-line="631" class="code-line"><strong>Raid-5: Striping with distributed parity</strong></h2>
-<p data-line="633" class="code-line">In this RAID level, we have N disks (minumum 3)
-!!! success Offers fault tolerance.</p>
+<a for="toc-anchor" id="**raid-5%3A-striping-with-distributed-parity**"></a><h2 id="raid-5-striping-with-distributed-parity-2" data-line="632" class="code-line"><strong>Raid-5: Striping with distributed parity</strong></h2>
+<p data-line="634" class="code-line">In this RAID level, we have N disks (minumum 3)</p>
+<div class="admonition success">
+<p class="admonition-title">Offers fault tolerance.</p>
+</div>
 <div class="admonition success">
 <p class="admonition-title">Parity is now distributed among the disks.</p>
 </div>
 <div class="admonition success">
 <p class="admonition-title">Offers availability.</p>
 <ul>
-<li data-line="640" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
-<li data-line="641" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
-<li data-line="642" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+<li data-line="642" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="643" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="644" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
 </ul>
 </div>
 <div class="admonition success">
@@ -1039,18 +1040,20 @@ This is scalable because the more servers I buy, the more capacity that I have.<
 <p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-1)/N in storage.</p>
 </div>
 <hr>
-<a for="toc-anchor" id="**raid-6%3A-striping-with-double-distributed-parity**"></a><h2 id="raid-6-striping-with-double-distributed-parity-2" data-line="653" class="code-line"><strong>Raid-6: Striping with double distributed parity</strong></h2>
-<p data-line="655" class="code-line">In this RAID level, we have N disks (minumum 3)
-!!! success Offers fault tolerance.</p>
+<a for="toc-anchor" id="**raid-6%3A-striping-with-double-distributed-parity**"></a><h2 id="raid-6-striping-with-double-distributed-parity-2" data-line="655" class="code-line"><strong>Raid-6: Striping with double distributed parity</strong></h2>
+<p data-line="657" class="code-line">In this RAID level, we have N disks (minumum 3)</p>
+<div class="admonition success">
+<p class="admonition-title">Offers fault tolerance.</p>
+</div>
 <div class="admonition success">
 <p class="admonition-title">Parity is now distributed among the disks and written twice.</p>
 </div>
 <div class="admonition success">
 <p class="admonition-title">Offers availability.</p>
 <ul>
-<li data-line="662" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
-<li data-line="663" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
-<li data-line="664" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
+<li data-line="665" class="code-line">Hot spare - Inside the box, I have a replacement disk ready just in case another one is damaged.</li>
+<li data-line="666" class="code-line">Hot swap - A disk can be removed and replaced without affecting the other disk.</li>
+<li data-line="667" class="code-line">Automatic reconstruction - When the new disk is in the box, it can automatically reconstruct.</li>
 </ul>
 </div>
 <div class="admonition success">
@@ -1065,7 +1068,7 @@ This is scalable because the more servers I buy, the more capacity that I have.<
 <div class="admonition failure">
 <p class="admonition-title">The more disks that are added, the more likely a disk failure. Efficiency of (N-2)/N in storage. Expensive.</p>
 </div>
-<p data-line="674" class="code-line">If I have 5 disks, when one disk dies it can detect and automatically reconstruct it. However, a second failure will diminish availability.</p>
+<p data-line="677" class="code-line">If I have 5 disks, when one disk dies it can detect and automatically reconstruct it. However, a second failure will diminish availability.</p>
 <hr>
    <p align="center">
         <img src="https://raw.githubusercontent.com/aortiz49/operating-systems-exam3-notes/master/raid.png">
@@ -1074,6 +1077,7 @@ This is scalable because the more servers I buy, the more capacity that I have.<
         </figcaption>
     </p>
 </div>
+
 
 </body>
 </html>
