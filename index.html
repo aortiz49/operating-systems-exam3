@@ -854,6 +854,69 @@ In the case that the first machine aborts the service for some reason, the fiest
         </figcaption>
     </p>
 </div>
+<a for="toc-anchor" id="**database-systems**"></a><h1 id="database-systems-2" data-line="467" class="code-line"><strong>Database Systems</strong></h1>
+<a for="toc-anchor" id="**shared-disk**"></a><h2 id="shared-disk-2" data-line="469" class="code-line"><strong>Shared Disk</strong></h2>
+<p data-line="471" class="code-line">We add a second DB server but keep one storage. Whichever machine consumes the services of the database now has two alternatives instead of one. The application server can ask either DB server to perform the operation.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p data-line="474" class="code-line">For a write operation, if one server handles the job its important that the other server knows that the write operation took place. If not, when I request a read operation on that same data but to the other server, it won't know how to handle the request. (Update cache)</p>
+</div>
+<p data-line="476" class="code-line"><span style="color:#ff4d94;"> <strong>Performance</strong></span>: If I make a request, does the response time increase? Depends on read or write operations. For a read opertaion, I can now take more than one path so my response time can improve. For a write operation, since I have to talk to the other machine I might lose performance.</p>
+<p data-line="478" class="code-line">If the bottle neck was in the server, then by adding another I end up winning by lowering that bottleneck. But if the bottleneck is in the storage, then  adding another server won't improve my performance since the end result is still limited by the storage bottleneck.</p>
+<p data-line="480" class="code-line"><span style="color:#ff4d94;"> <strong>Capacity</strong></span>: Capacity of productivity doesn't increase because it depends on respinse time and as we saw above, if our bottleneck is in the storage then it wont increase this type of capacity. However, if it is load capacity then it does improve because I am able to process more transactions at once.</p>
+<p data-line="482" class="code-line"><span style="color:#ff4d94;"> <strong>Availability</strong></span>: If we have a SPOF (Single Point Of Failure), our system depends on whether or not that fails. So it won't increase our availability. The server application is in series with the rest of the solution, and if that other part of the solution dies, the entire system dies.</p>
+<p data-line="484" class="code-line"><span style="color:#ff4d94;"> <strong>Scalability</strong></span>:
+Remember, this is related to capacity. If I throw more money at the solution, it is sacalable if it results in improvements in capacity. This depends on the bottleneck. If the bottleneck is in the RDBMS, by adding another server I will have a gain.  But if the bottleneck is in the storage, there is no gain since this solution adds servers and adding a server won't improve scalability if the bottleneck is in the storage.</p>
+<a for="toc-anchor" id="**multi-master**"></a><h2 id="multi-master-2" data-line="487" class="code-line"><strong>Multi-master</strong></h2>
+<p data-line="489" class="code-line">In this solution, I add a <span style="color:#ff944d;"> <strong>replicator</strong></span> in front of the RDMBSs.</p>
+<ul>
+<li data-line="491" class="code-line">When a client wants to write to the system, the replicator sends the petition to every server.</li>
+<li data-line="492" class="code-line">When a client want to read from the system, the replicator sends the petition to any server acting as a load-balancer.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">SPOF</p>
+<p data-line="495" class="code-line">The SPOF lies in the replicator. If it dies, the system will die.</p>
+</div>
+<p data-line="497" class="code-line"><span style="color:#ff4d94;"> <strong>Performance</strong></span>:
+Depends on if the petition is a read or write. For reads there is an increase in performance because there are now more servers to read from, not just one. For writes there is no improvement, there might even be a decrease in performance. Now, I have to write to many different servers instead of just one. Each write will cost just a little bit.</p>
+<p data-line="500" class="code-line"><span style="color:#ff4d94;"> <strong>Capacity</strong></span>:
+If # of reads &gt; # writes then this solution increases the capacity which is the number of petitions handles per unit of time. Otherwise, the capacity won't increase.</p>
+<p data-line="504" class="code-line"><span style="color:#ff4d94;"> <strong>Availability</strong></span>:
+Increases with this solution but again, it depends on if the replicator fails or not.</p>
+<p data-line="507" class="code-line"><span style="color:#ff4d94;"> <strong>Scalablity</strong></span>:
+Similar to the capacity. This is scalable if # reads &gt; # of writes. If I increase the number of servers, I will do better. But otherwise, it won't cause an increas.</p>
+<a for="toc-anchor" id="**master-slave**"></a><h2 id="master-slave-2" data-line="510" class="code-line"><strong>Master-slave</strong></h2>
+<p data-line="512" class="code-line">In this solution, I add a <span style="color:#ff944d;"> <strong>distributor</strong></span> in front of the RDMBSs and there will be a master RDBMS and other RDMBSs that are slaves.</p>
+<ul>
+<li data-line="514" class="code-line">When a client wants to write to the system, it sends the petition directly to the master server, which commits the data to the slaves.</li>
+<li data-line="515" class="code-line">When a client want to read from the system, the distributor sends the petition to any server acting as a load-balancer.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">The client must be configured so that reads are sent to the distributor, and writes are sent to the master. Therefore, for reads the SPOF is the distributor but for writes the SPOF is the master server.</p>
+</div>
+<p data-line="519" class="code-line"><span style="color:#ff4d94;"> <strong>Performance</strong></span>:
+This solutions offers a performance increase because reads and writes are handled separately. Also, for reads the performance increases since the petition is being distributed among all the machines, lowering the response time.</p>
+<p data-line="522" class="code-line"><span style="color:#ff4d94;"> <strong>Capacity</strong></span>:
+When compared with only one disk and one server, reads are improved but not writes.</p>
+<p data-line="525" class="code-line"><span style="color:#ff4d94;"> <strong>Availability</strong></span>:
+Again, depends on the SPOF.</p>
+<p data-line="528" class="code-line"><span style="color:#ff4d94;"> <strong>Scalability</strong></span>:
+Scalable in reads, not in writes. Depends on the proportion of reads vs writes.</p>
+<a for="toc-anchor" id="**shared-nothing**"></a><h2 id="shared-nothing-2" data-line="531" class="code-line"><strong>Shared-nothing</strong></h2>
+<p data-line="533" class="code-line">In this solution, we split the database storage so that its distributed among many servers. One server knows information about a certain sector of the database. For reads and writes, I must read/write the corresponding database sector that corresponds to what I want.</p>
+<div class="admonition warning">
+<p class="admonition-title">SPOF</p>
+<p data-line="536" class="code-line">In this solution, if any given server dies, we cannot access the infroamtion from its DB. Also, if any DB dies, the server cannot access its information. In these, only the small sector of the DB is affected not the entire DB.</p>
+</div>
+<p data-line="538" class="code-line"><span style="color:#ff4d94;"> <strong>Availability</strong></span>:
+Improves, if we can keep operating independently of the other servers and while the remaining petitions are those directed at non-affected servers.</p>
+<p data-line="541" class="code-line"><span style="color:#ff4d94;"> <strong>Performance</strong></span>:
+Response time improves if the petitions are equally distributed among the servers.</p>
+<p data-line="544" class="code-line"><span style="color:#ff4d94;"> <strong>Capacity</strong></span>:
+The capacity of the disk is being increased in this case. The more servers and DBs I add, the more store space I have.</p>
+<p data-line="547" class="code-line"><span style="color:#ff4d94;"> <strong>Scalability</strong></span>:
+This is scalable because the more servers I buy, the more capacity that I have.</p>
+</div>
 
 </body>
 </html>
