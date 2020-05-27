@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>capacity_planning.md</title>
+<title>Exam 3 Review</title>
 
 <!-- official styles start -->
 <!-- markdown.css -->
@@ -358,64 +358,102 @@ The availabiliy increased only by .99%. However, the cost was doubled.</p>
 </ul>
 </div>
 <a for="toc-anchor" id="**failover-cluster-vs-load-balancing-cluster**"></a><h2 id="failover-cluster-vs-load-balancing-cluster-3" data-line="367" class="code-line"><strong>Failover Cluster vs Load-Balancing Cluster</strong></h2>
-<a for="toc-anchor" id="%3Cspan-style%3D%22color%3A%23ff944d%3B%22%3E-%3Cstrong%3Eload-balancing%3C%2Fstrong%3E%3C%2Fspan%3E%3A"></a><h3 id="span-style22colorff944d22-strongload-balancingstrongspan-3" data-line="370" class="code-line"><span style="color:#ff944d;"> <strong>Load-Balancing</strong></span>:</h3>
+<a for="toc-anchor" id="%3Cspan-style%3D%22color%3A%23ff944d%3B%22%3E-%3Cstrong%3Efailover%3C%2Fstrong%3E%3C%2Fspan%3E%3A"></a><h3 id="span-style22colorff944d22-strongfailoverstrongspan-3" data-line="370" class="code-line"><span style="color:#ff944d;"> <strong>Failover</strong></span>:</h3>
+<p data-line="372" class="code-line">Suitable for applications that hold state information. Scale vertically, since the presence of a state forces me to stay on the machine I am on.</p>
 <ul>
-<li data-line="372" class="code-line">Recovers against failure</li>
-<li data-line="373" class="code-line">Stateless</li>
-<li data-line="374" class="code-line">Specific solution tailored to an application</li>
-<li data-line="375" class="code-line">Simple, cheap servers. If one fails, its fine because they can fail but I can buy and add others.</li>
-</ul>
-<a for="toc-anchor" id="%3Cspan-style%3D%22color%3A%23ff944d%3B%22%3E-%3Cstrong%3Efailover%3C%2Fstrong%3E%3C%2Fspan%3E%3A"></a><h3 id="span-style22colorff944d22-strongfailoverstrongspan-3" data-line="377" class="code-line"><span style="color:#ff944d;"> <strong>Failover</strong></span>:</h3>
-<p data-line="379" class="code-line">Suitable for applications that hold state information. Scale vertically, since the presence of a state forces me to stay on the machine I am on.</p>
-<ul>
-<li data-line="381" class="code-line">
-<p data-line="381" class="code-line">Recovers against failure</p>
+<li data-line="374" class="code-line">
+<p data-line="374" class="code-line">Recovers against failure</p>
 </li>
-<li data-line="382" class="code-line">
-<p data-line="382" class="code-line">Persistence by shared storage</p>
+<li data-line="375" class="code-line">
+<p data-line="375" class="code-line">Persistence by shared storage</p>
 </li>
-<li data-line="383" class="code-line">
-<p data-line="383" class="code-line">Generic solution</p>
+<li data-line="376" class="code-line">
+<p data-line="376" class="code-line">Generic solution</p>
 </li>
-<li data-line="384" class="code-line">
-<p data-line="384" class="code-line">Large servers with redundant hardware</p>
+<li data-line="377" class="code-line">
+<p data-line="377" class="code-line">Large servers with redundant hardware</p>
 <div class="admonition info">
 <p class="admonition-title">Reaction to failure</p>
-<p data-line="387" class="code-line">The following steps are automatized:</p>
-<p data-line="389" class="code-line">Hardware failure: <strong> Migrate </strong> the service to another server<br>
+<p data-line="380" class="code-line">The following steps are automatized:</p>
+<p data-line="382" class="code-line">Hardware failure: <strong> Migrate </strong> the service to another server<br>
 OS failure: <strong> Reboot </strong> or migrate service<br>
 Application failure: <strong>Relaunch</strong>, eventually migrate service</p>
 </div>
 <div class="admonition tldr">
 <p class="admonition-title">Types of Failover clusters</p>
-<p data-line="395" class="code-line"><span style="color:#ff944d;"> <strong>Active/Passive</strong></span>: I have one machine offering the service formed by the cluster as well as the DB storing the service and another machine that is on <em>standby</em> waiting for the other machine to fail. The standby machine can be as &quot;ready&quot; as we want it to be. (on, off, in storage, or even ready with all resources and listening to other machine.)
+<p data-line="388" class="code-line"><span style="color:#ff944d;"> <strong>Active/Passive</strong></span>: I have one machine offering the service formed by the cluster as well as the DB storing the service and another machine that is on <em>standby</em> waiting for the other machine to fail. The standby machine can be as &quot;ready&quot; as we want it to be. (on, off, in storage, or even ready with all resources and listening to other machine.)
 When machine 1 fails, machine 2 appropriates the storage and starts offering the service.</p>
-<p data-line="398" class="code-line"><span style="color:#ff944d;"> <strong>Active/Active</strong></span>: I have both machines offering a distinct service while sharing the same database storage. If either one of the machines fail, the other machine will take over and offer both services simultaneously. Both machines monitor the other to catch whenever it has to take over the other. These machines can only operate at 40% each since it would prevent 80% usage on a single amchien in case of failure of the other.</p>
+<p data-line="391" class="code-line"><span style="color:#ff944d;"> <strong>Active/Active</strong></span>: I have both machines offering a distinct service while sharing the same database storage. If either one of the machines fail, the other machine will take over and offer both services simultaneously. Both machines monitor the other to catch whenever it has to take over the other. These machines can only operate at 40% each since it would prevent 80% usage on a single amchien in case of failure of the other.</p>
 </div>
 </li>
 </ul>
-<p data-line="400" class="code-line"><span style="color:#ff4d94;"> <strong>N + 1 Redundancy </strong></span>: N services running on their own machine, and 1 parked machine monitoring all the other machines. Ths machine is available so that if any of the N machines fail, it will attend to that service.</p>
+<p data-line="393" class="code-line"><span style="color:#ff4d94;"> <strong>N + 1 Redundancy </strong></span>: N services running on their own machine, and 1 parked machine monitoring all the other machines. Ths machine is available so that if any of the N machines fail, it will attend to that service.</p>
 <div class="admonition danger">
 <p class="admonition-title"> Cons</p>
-<p data-line="403" class="code-line">When one of the N machines fails, none of the other N machines can fail meaning that they are no longer operating at high availability. So, when something dies in a cluster, we have to run to go fix the one that broke. Otherwise, the entire availability collapses since now I am depending on one machine. Cheap, but risky.</p>
-<p data-line="405" class="code-line">The process of restoring the failed machine back to operating is called <strong>failback</strong>. Once this is done, the system returns to high availability.</p>
+<p data-line="396" class="code-line">When one of the N machines fails, none of the other N machines can fail meaning that they are no longer operating at high availability. So, when something dies in a cluster, we have to run to go fix the one that broke. Otherwise, the entire availability collapses since now I am depending on one machine. Cheap, but risky.</p>
+<p data-line="398" class="code-line">The process of restoring the failed machine back to operating is called <strong>failback</strong>. Once this is done, the system returns to high availability.</p>
 </div>
-<p data-line="407" class="code-line"><span style="color:#ff4d94;"> <strong>N + M Redundancy</strong></span>: In this configuration, we have N machines offering the service and M machines monitoring the others, awaiting a failure. Now, if one of the N machines fail, the other N-1 machines still have M-1 available machines to migrate their services to. Depenign on the level of desired availability I can choose N &gt; M or M &gt; N.</p>
+<p data-line="400" class="code-line"><span style="color:#ff4d94;"> <strong>N + M Redundancy</strong></span>: In this configuration, we have N machines offering the service and M machines monitoring the others, awaiting a failure. Now, if one of the N machines fail, the other N-1 machines still have M-1 available machines to migrate their services to. Depenign on the level of desired availability I can choose N &gt; M or M &gt; N.</p>
 <ul>
-<li data-line="409" class="code-line">If N &gt; M,  I won't be allowing the system much room for failure.</li>
-<li data-line="410" class="code-line">If N = M,  I can ensure that each service is allowed at least one failure.</li>
-<li data-line="411" class="code-line">If I have N &gt; M,  If a machine fails and I have migrated the service to a backup machine, this backup machine can also have a backup while I fix the first one. Availability is not jeapordized.</li>
+<li data-line="402" class="code-line">If N &gt; M,  I won't be allowing the system much room for failure.</li>
+<li data-line="403" class="code-line">If N = M,  I can ensure that each service is allowed at least one failure.</li>
+<li data-line="404" class="code-line">If I have N &gt; M,  If a machine fails and I have migrated the service to a backup machine, this backup machine can also have a backup while I fix the first one. Availability is not jeapordized.</li>
 </ul>
-<p data-line="413" class="code-line"><span style="color:#ff4d94;"> <strong>N-N Redundancy</strong></span>: Similar to active/active. Each machine is runinning its own service and if one machine fails, another takes on its service, while maintaining an appropriate consumption &lt; 80%.</p>
+<p data-line="406" class="code-line"><span style="color:#ff4d94;"> <strong>N-N Redundancy</strong></span>: Similar to active/active. Each machine is runinning its own service and if one machine fails, another takes on its service, while maintaining an appropriate consumption &lt; 80%.</p>
 <div class="admonition danger">
 <p class="admonition-title"> Cons</p>
-<p data-line="416" class="code-line">Since the machines will each be operating at 40%, this system will only support N/2 failures since if half of the machines fail, the other half will be operating at 80%. This means some must operate below 40% to increase redundancy. This depends on how much money I am prepare dto invest.</p>
+<p data-line="409" class="code-line">Since the machines will each be operating at 40%, this system will only support N/2 failures since if half of the machines fail, the other half will be operating at 80%. This means some must operate below 40% to increase redundancy. This depends on how much money I am prepare dto invest.</p>
 </div>
 <hr>
-<a for="toc-anchor" id="**failover-operation**"></a><h3 id="failover-operation-3" data-line="419" class="code-line"><strong>Failover Operation</strong></h3>
-<p data-line="421" class="code-line"><span style="color:#ff944d;"> <strong>Normal state</strong></span>: A service is offered by a machine. Another machine serves as redundancy for the fist machine. Clustering software is runnong on both machines. The user simply connects to the machine offering the service. The redundant machine monitors the first machine, waiting for it to fail so that it can start offering the service in its stead. The monitoring is very important since it is the only means for the redundant machine to be aware of the health of the 1st machine and if it that channel fails, the redundant machine is useless. For this to work, one or two cables are used to facilitate the monitoring. This is called a <span style="color:#ff4d94;"> <strong>Heartbeat</strong></span>.</p>
-<p data-line="423" class="code-line"><span style="color:#ff944d;"> <strong>Problem encountered</strong></span>:
-In the case that the first machine aborts the service for some reason, the fiest consequence is that the user is left with no service. Too bad!! But we are supposed to protect the service, not the user. We will recover the service asap, but the user will experience no service for a while.</p>
+<a for="toc-anchor" id="**failover-operation**"></a><h3 id="failover-operation-3" data-line="412" class="code-line"><strong>Failover Operation</strong></h3>
+<p data-line="414" class="code-line"><span style="color:#ff944d;"> <strong>Normal state</strong></span>: A service is offered by a machine. Another machine serves as redundancy for the fist machine. Clustering software is runnong on both machines. The user simply connects to the machine offering the service. The redundant machine monitors the first machine, waiting for it to fail so that it can start offering the service in its stead. The monitoring is very important since it is the only means for the redundant machine to be aware of the health of the 1st machine and if it that channel fails, the redundant machine is useless. For this to work, one or two cables are used to facilitate the monitoring. This is called a <span style="color:#ff4d94;"> <strong>Heartbeat</strong></span>.</p>
+<p data-line="416" class="code-line"><span style="color:#ff944d;"> <strong>Problem encountered</strong></span>:
+In the case that the first machine aborts the service for some reason, the fiest consequence is that the user is left with no service. Too bad!! But we are supposed to protect the service, not the user. We will recover the service asap, but the user will experience no service for a while. So, the redundant machine listens to the heartbeat and when it detects a failure, it runs the clustering software and executes the failover process. The DB is disconnected from the first machine and connects to the redundant machine. Then, the service will be lifted on the new machine and the user reconnects to this machine to continue using the service. (This machine must obtain the id of the user and transactions done by the previous machine)</p>
+<a for="toc-anchor" id="**monitors**"></a><h3 id="monitors-3" data-line="419" class="code-line"><strong>Monitors</strong></h3>
+<div class="admonition warning">
+<p class="admonition-title">Risks:</p>
+<ul>
+<li data-line="422" class="code-line">Test timeouts</li>
+<li data-line="423" class="code-line">Frequency of tests</li>
+<li data-line="424" class="code-line">Test failure</li>
+</ul>
+</div>
+<p data-line="426" class="code-line">In reality, a failover cluster can have a set of machines not just 2. If at some point &quot;islands&quot; are formed between the machines, the island that runs the service is the one that has the most resources.</p>
+<div class="admonition tip">
+<p class="admonition-title">&quot;Quorum&quot;</p>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/aortiz49/operating-systems-exam3-notes/master/quorum.png">
+    <figcaption style="text-align:center;">
+        Fig. 6: Quorum device
+    </figcaption>
+</p>
+</div>
+<a for="toc-anchor" id="%3Cspan-style%3D%22color%3A%23ff944d%3B%22%3E-%3Cstrong%3Eload-balancing%3C%2Fstrong%3E%3C%2Fspan%3E%3A"></a><h3 id="span-style22colorff944d22-strongload-balancingstrongspan-3" data-line="437" class="code-line"><span style="color:#ff944d;"> <strong>Load-Balancing</strong></span>:</h3>
+<ul>
+<li data-line="439" class="code-line">Recovers against failure</li>
+<li data-line="440" class="code-line"><strong>Stateless</strong></li>
+<li data-line="441" class="code-line">Specific solution tailored to an application</li>
+<li data-line="442" class="code-line">Simple, cheap servers. If one fails, its fine because they can fail but I can buy and add others.</li>
+<li data-line="443" class="code-line">High availability</li>
+<li data-line="444" class="code-line">Very scalable</li>
+<li data-line="445" class="code-line">High performance</li>
+</ul>
+<div class="admonition info">
+<p data-line="449" class="code-line">A service identifies itself with the address of the machine running the service, and the id of the service of the machine. (120.101.21.1.00) The end bits representing the port number of the service.</p>
+<p data-line="451" class="code-line">All services received on a given port will be distributed between many machines ready to attend to the task like a &quot;hot potato&quot;.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Real Solutions</p>
+<p data-line="454" class="code-line">A load-balancer distributes petitions to the servers in the load-balancing cluster, which then interact with the database which is stateful. The database will be put on failover since it has states. So, data will be read/written to one DB on a machine but once it fails, it will failover to another machine with a DB as we have previously seen.</p>
+<p data-line="456" class="code-line">One has to protect security. So, the only machine exposed to the user (on the internet) is the load-balancer, therefore this machine must have also act as a firewall which protects the rest of the machines.</p>
+<p data-line="458" class="code-line">However, the load-balancer must also be in failover because if this machine fails, another load-balancer can assume the responsibility of distributing petitions to the load-balancer cluster.</p>
+</div>
+<p align="center">
+        <img src="https://raw.githubusercontent.com/aortiz49/operating-systems-exam3-notes/master/cluster_chart.png">
+        <figcaption style="text-align:center;">
+            Fig. 7: Cluster Chart
+        </figcaption>
+    </p>
 </div>
 
 </body>
